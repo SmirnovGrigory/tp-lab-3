@@ -1,6 +1,9 @@
 #include "DateTime.h"
 #define _CRT_SECURE_NO_WARNINGS
 #include <cmath>
+#include <iostream>
+#include <stdlib.h>
+#include <string.h>
 
 string lowRegister(char* buf)
 {
