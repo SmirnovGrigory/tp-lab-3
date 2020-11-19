@@ -19,8 +19,8 @@ public:
 	string getToday() const;
 	string getYesterday() const;
 	string getTomorrow() const;
-	string getFuture(u_int N) const;
-	string getPast(u_int N) const;
+	DateTime getFuture(u_int N) const;
+	DateTime getPast(u_int N) const;
 	int getDifference(DateTime&);
 
 };

@@ -16,42 +16,46 @@ string lowRegister(char* buf)
 string DateTime::getToday() const
 {
     char buf[50];
-    time_t now;
-    time(&now);
-    tm* t_info = localtime(&now);
-    mktime(t_info);
-    strftime(buf, 50, "%d %B %Y, %A", t_info);
+    strftime(buf, 50, "%d %B %Y, %A",&date);
     return lowRegister(buf);
 }
 
 string DateTime::getYesterday() const
 {
-    return getPast(1);
+    char buf[50];
+    tm t_info = date;
+    t_info.tm_mday = t_info.tm_mday - 1;
+    mktime(&t_info);
+    strftime(buf, 50, "%d %B %Y, %A", &t_info);
+    return lowRegister(buf);
 }
 
 string DateTime::getTomorrow() const
 {
-    return getFuture(1);
+    char buf[50];
+    tm t_info = date;
+    t_info.tm_mday = t_info.tm_mday + 1;
+    mktime(&t_info);
+    strftime(buf, 50, "%d %B %Y, %A", &t_info);
+    return lowRegister(buf);
 }
 
-string DateTime::getFuture(u_int N) const
+DateTime DateTime::getFuture(u_int N) const
 {
-    char buf[50];
     tm t_info = date;
     t_info.tm_mday = t_info.tm_mday + N;
     mktime(&t_info);
-    strftime(buf, 50, "%d %B %Y, %A", &t_info);
-    return lowRegister(buf);
+    DateTime result(t_info.tm_mday,t_info.tm_mon+1,t_info.tm_year+1900);
+    return result;
 }
 
-string DateTime::getPast(u_int N) const
+DateTime DateTime::getPast(u_int N) const
 {
-    char buf[50];
     tm t_info = date;
     t_info.tm_mday = t_info.tm_mday - N;
     mktime(&t_info);
-    strftime(buf, 50, "%d %B %Y, %A", &t_info);
-    return lowRegister(buf);
+    DateTime result(t_info.tm_mday, t_info.tm_mon + 1, t_info.tm_year + 1900);
+    return result;
 }
 
 int DateTime::getDifference(DateTime& another) 
