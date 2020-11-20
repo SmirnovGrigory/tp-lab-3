@@ -3,7 +3,7 @@
 
 double calcDelta()
 {
-	Circle a = Circle(6378100);
+	Circle a = Circle(6378.1);
 	Circle b = Circle(1);
 	b.setFerence(a.getFerence() + 1);
 	return b.getRadius() - a.getRadius();
